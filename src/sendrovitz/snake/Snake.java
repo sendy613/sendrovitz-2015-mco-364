@@ -12,15 +12,16 @@ import sendrovitz.smile.Smile;
 public class Snake extends JFrame implements KeyListener {
 	public Snake() {
 		setSize(500, 500);
-		setTitle("SMILE");
+		setTitle("SNAKE");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		Container contentPane = getContentPane();
 		contentPane.setLayout(new BorderLayout());
-		SnakeComponent comp = new SnakeComponent();
+		World comp = new World();
 		comp.addKeyListener(this);
 		comp.setFocusable(true);
 		contentPane.add(comp);
+		
 	}
 
 	public static void main(String args[]) {
