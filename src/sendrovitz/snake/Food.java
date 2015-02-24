@@ -13,8 +13,8 @@ public class Food {
 	public Food() {
 		this.c = new Coord();
 		Random random = new Random();
-		c.setX(random.nextInt(49) * foodSize);
-		c.setY(random.nextInt(49) * foodSize);
+		c.setX((random.nextInt(42) + 5) * foodSize);
+		c.setY((random.nextInt(42) + 5) * foodSize);
 	}
 
 	public Coord getFood() {

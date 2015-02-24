@@ -32,7 +32,8 @@ public class SnakeFrame extends JFrame implements KeyListener {
 		comp.addKeyListener(this);
 		comp.setFocusable(true);
 		contentPane.add(comp);
-	
+		pressed = "Right";
+
 	}
 
 	public String getPressed() {
@@ -62,18 +63,20 @@ public class SnakeFrame extends JFrame implements KeyListener {
 					// redraw
 					snake.repaint();
 					// see if game over
-					if (snake.getWorldComponent().getWorld().gameOver() && snake.pressed.compareTo("N")==0) {
-						SnakeFrame.main(null);
+
+					if (snake.getWorldComponent().getWorld().gameOver()) {
 						break;
 					}
+
 					try {
-						Thread.sleep(300);
+						Thread.sleep(200);
 
 					} catch (InterruptedException e) {
 
 						e.printStackTrace();
 					}
 				}
+
 			}
 		};
 		thread.start();
@@ -84,9 +87,13 @@ public class SnakeFrame extends JFrame implements KeyListener {
 	public void keyPressed(KeyEvent e) {
 		if (e.getKeyChar() == '4' || e.getKeyChar() == '6' || e.getKeyChar() == '8' || e.getKeyChar() == '2'
 				|| (e.getKeyCode() == KeyEvent.VK_LEFT) || e.getKeyCode() == KeyEvent.VK_RIGHT
-				|| (e.getKeyCode() == KeyEvent.VK_UP) || (e.getKeyCode() == KeyEvent.VK_DOWN) 
-				|| (e.getKeyCode() == KeyEvent.VK_N)) {
+				|| (e.getKeyCode() == KeyEvent.VK_UP) || (e.getKeyCode() == KeyEvent.VK_DOWN)
+				|| (e.getKeyCode() == KeyEvent.VK_ENTER)) {
+
 			pressed = KeyEvent.getKeyText(e.getKeyCode());
+			if (pressed.compareTo("Enter") == 0) {
+				SnakeFrame.main(null);
+			}
 		}
 	}
 

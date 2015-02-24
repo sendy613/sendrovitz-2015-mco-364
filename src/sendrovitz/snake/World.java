@@ -74,28 +74,59 @@ public class World {
 	}
 
 	// moveSnake
+	// if it wants to go in the opposite direction it continues going in the
+	// direction it was going before
 	public void moveSnake() {
 		Integer x = snake.getFirst().getX();
 		Integer y = snake.getFirst().getY();
-		snake.getHead().setDirection(input);
 
 		switch (input) {
+
 		case "Left":
-			x -= snake.getSizeOfSquare();
+			// if the input is not Right
+			if (snake.getHead().getDirection().compareTo("Right") < 0
+					|| snake.getHead().getDirection().compareTo("Right") > 0) {
+				x -= snake.getSizeOfSquare();
+			}
+			// if it is Right, continue going Left
+			else {
+				x += snake.getSizeOfSquare();
+				input = snake.getHead().getDirection();
+			}
+
 			break;
 
 		case "Right":
-			x += snake.getSizeOfSquare();
+			if (snake.getHead().getDirection().compareTo("Left") < 0
+					|| snake.getHead().getDirection().compareTo("Left") > 0) {
+				x += snake.getSizeOfSquare();
+			} else {
+				x -= snake.getSizeOfSquare();
+				input = snake.getHead().getDirection();
+			}
 			break;
 
 		case "Up":
-			y -= snake.getSizeOfSquare();
+			if (snake.getHead().getDirection().compareTo("Down") < 0
+					|| snake.getHead().getDirection().compareTo("Down") > 0) {
+				y -= snake.getSizeOfSquare();
+			} else {
+				y += snake.getSizeOfSquare();
+				input = snake.getHead().getDirection();
+			}
 			break;
 
 		case "Down":
-			y += snake.getSizeOfSquare();
+			if (snake.getHead().getDirection().compareTo("Up") < 0
+					|| snake.getHead().getDirection().compareTo("Up") > 0) {
+				y += snake.getSizeOfSquare();
+			} else {
+				y -= snake.getSizeOfSquare();
+				input = snake.getHead().getDirection();
+			}
 			break;
 		}
+		snake.getHead().setDirection(input);
 		snake.addHead(new Coord(x, y));
 		if (getIfAteFood()) {
 			snake.setNumOfSquares();
@@ -127,7 +158,7 @@ public class World {
 		}
 		if (food.getFood().getX().compareTo(0) < 0 || food.getFood().getX().compareTo(board.getWidth()) > 0
 				|| food.getFood().getY().compareTo(0) < 0 || food.getFood().getY().compareTo(board.getHeight()) > 0) {
-			covered= true;
+			covered = true;
 		}
 
 		if (covered == true) {
@@ -139,8 +170,9 @@ public class World {
 	}
 
 	public boolean gameOver() {
-		if (snake.getFirst().getX().compareTo(0) < 0 || snake.getFirst().getX().compareTo(board.getWidth()-10) > 0
-				|| snake.getFirst().getY().compareTo(0) < 0 || snake.getFirst().getY().compareTo(board.getHeight()-10) > 0) {
+		if (snake.getFirst().getX().compareTo(0) < 0 || snake.getFirst().getX().compareTo(board.getWidth() - 10) > 0
+				|| snake.getFirst().getY().compareTo(0) < 0
+				|| snake.getFirst().getY().compareTo(board.getHeight() - 10) > 0) {
 			return true;
 		} else {
 			for (int i = 1; i < snake.getNumOfSquares(); i++) {

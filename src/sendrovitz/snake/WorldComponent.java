@@ -13,6 +13,7 @@ import javax.swing.JComponent;
 //job is to paint everything
 public class WorldComponent extends JComponent {
 	private World world;
+
 	public WorldComponent(World world) {
 		this.world = world;
 	}
@@ -26,18 +27,15 @@ public class WorldComponent extends JComponent {
 		super.paintComponent(g);
 		Image img = null;
 		if (world.gameOver()) {
-			/*g.setColor(Color.BLUE);
-			g.fillRect(0, 0, world.getBoard().getWidth(), world.getBoard().getHeight());
-			g.setColor(Color.WHITE);
-			g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 30));
-			g.drawString("GAME OVER", world.getBoard().getWidth() / 3, world.getBoard().getHeight() / 2);*/
 			try {
 				img = ImageIO.read(new File("gameover2.png"));
 			} catch (IOException e) {
 			}
 
-			g.drawImage(img,0,0,world.getBoard().getWidth(), world.getBoard().getHeight(),
-					null);
+			g.drawImage(img, 0, 0, world.getBoard().getWidth(), world.getBoard().getHeight(), null);
+			g.setColor(Color.WHITE);
+			g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
+			g.drawString("Press Enter for new game", world.getBoard().getWidth() / 3, 20);
 		} else {
 			// board
 			g.setColor(new Color(54584));
@@ -60,22 +58,14 @@ public class WorldComponent extends JComponent {
 					g.fillRect(snake.getX(i), snake.getY(i), snake.getSizeOfSquare(), snake.getSizeOfSquare());
 				}
 
-				// g.fillRect(snake.getX(i), snake.getY(i),
-				// snake.getSizeOfSquare(), snake.getSizeOfSquare());
 			}
 
 			// food
-			
-			// g.setColor(Color.RED);
-			// g.fillRect(world.getFood().getFood().getX(),
-			// world.getFood().getFood().getY(), world.getFood()
-			// .getFoodSize(), world.getFood().getFoodSize());
-
 			try {
 				img = ImageIO.read(new File("apple-red.png"));
 			} catch (IOException e) {
 			}
-			
+
 			g.drawImage(img, world.getFood().getFood().getX(), world.getFood().getFood().getY(), world.getFood()
 					.getFoodSize(), world.getFood().getFoodSize(), null);
 

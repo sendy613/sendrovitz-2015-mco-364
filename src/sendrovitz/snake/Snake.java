@@ -14,7 +14,7 @@ public class Snake {
 		this.numOfSquares = 2;
 		this.array = new ArrayList<Coord>();
 		array.add(head.getCoord());
-		array.add(new Coord(10, 20));
+		array.add(new Coord(head.getCoord().getX(), 20));
 
 	}
 
