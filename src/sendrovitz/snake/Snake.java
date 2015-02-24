@@ -1,70 +1,70 @@
 package sendrovitz.snake;
 
-import java.awt.BorderLayout;
-import java.awt.Container;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.util.ArrayList;
 
-import javax.swing.JFrame;
+public class Snake {
 
-import sendrovitz.smile.Smile;
+	private SnakeHead head;
+	private Integer numOfSquares;
+	private final Integer sizeOfSquare = 10;
+	private ArrayList<Coord> array;
 
-public class Snake extends JFrame implements KeyListener {
 	public Snake() {
-		setSize(500, 500);
-		setTitle("SNAKE");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		Container contentPane = getContentPane();
-		contentPane.setLayout(new BorderLayout());
-		World comp = new World();
-		comp.addKeyListener(this);
-		comp.setFocusable(true);
-		contentPane.add(comp);
-		
-	}
-
-	public static void main(String args[]) {
-		final Snake snake = new Snake();
-		snake.setVisible(true);
-
-		// animation thread- bec you are constantly calling repaint
-		Thread thread = new Thread() {
-			public void run() {
-				while (true) {
-					snake.repaint();
-					try {
-						Thread.sleep(1000); // stops the thread for 1 sec (1000
-											// ml sec)
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-			}
-		};
-		thread.start();
-	}
-
-	@Override
-	// happens once- when press it
-	public void keyPressed(KeyEvent e) {
-		//4 or left arrow, then turns left
-		//6 or right arrow, then turns right
-		if(e.getKeyChar()=='4' || e.getKeyChar()=='6' || (e.getKeyCode() == e.VK_LEFT) || e.getKeyCode()==e.VK_RIGHT){
-		System.out.println("key pressed");
-		}
-	}
-
-	@Override
-	// when release key
-	public void keyReleased(KeyEvent arg0) {
+		this.head = new SnakeHead();
+		this.numOfSquares = 2;
+		this.array = new ArrayList<Coord>();
+		array.add(head.getCoord());
+		array.add(new Coord(10, 20));
 
 	}
 
-	@Override
-	// keyPressed and keyReleased together (goes once release button)
-	public void keyTyped(KeyEvent arg0) {
-
+	public void setX(Integer i, Integer x) {
+		array.get(i).setX(x);
 	}
+
+	public void setY(Integer i, Integer y) {
+		array.get(i).setY(y);
+	}
+
+	public Integer getX(Integer i) {
+		return array.get(i).getX();
+	}
+
+	public Integer getY(Integer i) {
+		return array.get(i).getY();
+	}
+
+	public Integer getNumOfSquares() {
+		return numOfSquares;
+	}
+
+	public void setNumOfSquares() {
+		numOfSquares++;
+	}
+
+	public Integer getSizeOfSquare() {
+		return sizeOfSquare;
+	}
+
+	public SnakeHead getHead() {
+		return head;
+	}
+
+	public void removeLast() {
+		array.remove(array.size() - 1);
+	}
+
+	public Coord getFirst() {
+		return array.get(0);
+	}
+
+	public void addHead(Coord c) {
+		head.setCoord(c);
+		array.add(0, c);
+	}
+
+	public Coord getLast() {
+		return array.get(array.size() - 1);
+	}
+
 }
