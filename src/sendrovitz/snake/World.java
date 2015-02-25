@@ -172,7 +172,7 @@ public class World {
 	public boolean gameOver() {
 		if (snake.getFirst().getX().compareTo(0) < 0 || snake.getFirst().getX().compareTo(board.getWidth() - 10) > 0
 				|| snake.getFirst().getY().compareTo(0) < 0
-				|| snake.getFirst().getY().compareTo(board.getHeight() - 10) > 0) {
+				|| snake.getFirst().getY().compareTo(board.getHeight() - 35) > 0) {
 			return true;
 		} else {
 			for (int i = 1; i < snake.getNumOfSquares(); i++) {
