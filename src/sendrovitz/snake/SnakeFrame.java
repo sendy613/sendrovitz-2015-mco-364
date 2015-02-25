@@ -21,7 +21,7 @@ public class SnakeFrame extends JFrame implements KeyListener {
 	private JPanel panel;
 
 	public SnakeFrame() {
-		setSize(500, 500);
+		setSize(506, 500);
 		setTitle("SNAKE");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
@@ -69,7 +69,7 @@ public class SnakeFrame extends JFrame implements KeyListener {
 					}
 
 					try {
-						Thread.sleep(200);
+						Thread.sleep(100);
 
 					} catch (InterruptedException e) {
 
