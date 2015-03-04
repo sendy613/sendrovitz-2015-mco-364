@@ -79,50 +79,47 @@ public class World {
 	public void moveSnake() {
 		Integer x = snake.getFirst().getX();
 		Integer y = snake.getFirst().getY();
+		String direction = snake.getHead().getDirection();
 
 		switch (input) {
 
 		case "Left":
 			// if the input is not Right
-			if (snake.getHead().getDirection().compareTo("Right") < 0
-					|| snake.getHead().getDirection().compareTo("Right") > 0) {
+			if (direction.compareTo("Right") < 0 || direction.compareTo("Right") > 0) {
 				x -= snake.getSizeOfSquare();
 			}
 			// if it is Right, continue going Left
 			else {
 				x += snake.getSizeOfSquare();
-				input = snake.getHead().getDirection();
+				input = direction;
 			}
 
 			break;
 
 		case "Right":
-			if (snake.getHead().getDirection().compareTo("Left") < 0
-					|| snake.getHead().getDirection().compareTo("Left") > 0) {
+			if (direction.compareTo("Left") < 0 || direction.compareTo("Left") > 0) {
 				x += snake.getSizeOfSquare();
 			} else {
 				x -= snake.getSizeOfSquare();
-				input = snake.getHead().getDirection();
+				input = direction;
 			}
 			break;
 
 		case "Up":
-			if (snake.getHead().getDirection().compareTo("Down") < 0
-					|| snake.getHead().getDirection().compareTo("Down") > 0) {
+			if (direction.compareTo("Down") < 0 || direction.compareTo("Down") > 0) {
 				y -= snake.getSizeOfSquare();
 			} else {
 				y += snake.getSizeOfSquare();
-				input = snake.getHead().getDirection();
+				input = direction;
 			}
 			break;
 
 		case "Down":
-			if (snake.getHead().getDirection().compareTo("Up") < 0
-					|| snake.getHead().getDirection().compareTo("Up") > 0) {
+			if (direction.compareTo("Up") < 0 || direction.compareTo("Up") > 0) {
 				y += snake.getSizeOfSquare();
 			} else {
 				y -= snake.getSizeOfSquare();
-				input = snake.getHead().getDirection();
+				input = direction;
 			}
 			break;
 		}

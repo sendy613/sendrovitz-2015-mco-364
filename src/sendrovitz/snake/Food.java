@@ -1,10 +1,6 @@
 package sendrovitz.snake;
 
-import java.awt.Color;
-import java.awt.Graphics;
 import java.util.Random;
-
-import javax.swing.JComponent;
 
 public class Food {
 	private Coord c;

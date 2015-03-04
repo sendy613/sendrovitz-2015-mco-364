@@ -13,9 +13,18 @@ import javax.swing.JComponent;
 //job is to paint everything
 public class WorldComponent extends JComponent {
 	private World world;
+	private Image gameOver;
+	private Image head;
+	private Image apple;
 
 	public WorldComponent(World world) {
 		this.world = world;
+		try {
+			this.gameOver = ImageIO.read(new File("gameover2.png"));
+			this.head = ImageIO.read(new File("head.png"));
+			this.apple = ImageIO.read(new File("apple-red.png"));
+		} catch (IOException e) {
+		}
 	}
 
 	public World getWorld() {
@@ -25,14 +34,8 @@ public class WorldComponent extends JComponent {
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		Image img = null;
 		if (world.gameOver()) {
-			try {
-				img = ImageIO.read(new File("gameover2.png"));
-			} catch (IOException e) {
-			}
-
-			g.drawImage(img, 0, 0, world.getBoard().getWidth(), world.getBoard().getHeight(), null);
+			g.drawImage(gameOver, 0, 0, world.getBoard().getWidth(), world.getBoard().getHeight(), null);
 			g.setColor(Color.WHITE);
 			g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
 			g.drawString("Press Enter for new game", world.getBoard().getWidth() / 3, 20);
@@ -46,12 +49,7 @@ public class WorldComponent extends JComponent {
 			g.setColor(Color.BLACK);
 			for (int i = 0; i < snake.getNumOfSquares(); i++) {
 				if (i == 0) {
-					try {
-						img = ImageIO.read(new File("head.png"));
-					} catch (IOException e) {
-					}
-
-					g.drawImage(img, snake.getX(i), snake.getY(i), snake.getSizeOfSquare(), snake.getSizeOfSquare(),
+					g.drawImage(head, snake.getX(i), snake.getY(i), snake.getSizeOfSquare(), snake.getSizeOfSquare(),
 							null);
 				} else {
 					g.setColor(Color.YELLOW);
@@ -61,12 +59,7 @@ public class WorldComponent extends JComponent {
 			}
 
 			// food
-			try {
-				img = ImageIO.read(new File("apple-red.png"));
-			} catch (IOException e) {
-			}
-
-			g.drawImage(img, world.getFood().getFood().getX(), world.getFood().getFood().getY(), world.getFood()
+			g.drawImage(apple, world.getFood().getFood().getX(), world.getFood().getFood().getY(), world.getFood()
 					.getFoodSize(), world.getFood().getFoodSize(), null);
 
 		}

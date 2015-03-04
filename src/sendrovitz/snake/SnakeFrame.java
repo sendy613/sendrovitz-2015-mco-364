@@ -1,24 +1,14 @@
 package sendrovitz.snake;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Container;
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-
-import sendrovitz.smile.Smile;
 
 public class SnakeFrame extends JFrame implements KeyListener {
 	private String pressed;
 	private WorldComponent comp;
-	private JPanel panel;
 
 	public SnakeFrame() {
 		setSize(506, 500);
@@ -56,15 +46,16 @@ public class SnakeFrame extends JFrame implements KeyListener {
 		Thread thread = new Thread() {
 			public void run() {
 				while (true) {
+					World world = snake.getWorldComponent().getWorld();
 					// check input from user and sends it to world
-					snake.getWorldComponent().getWorld().setInput(snake.pressed);
+					world.setInput(snake.pressed);
 					// upates game objects
-					snake.getWorldComponent().getWorld().moveSnake();
+					world.moveSnake();
 					// redraw
 					snake.repaint();
 					// see if game over
 
-					if (snake.getWorldComponent().getWorld().gameOver()) {
+					if (world.gameOver()) {
 						break;
 					}
 
