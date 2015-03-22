@@ -16,7 +16,7 @@ public class Client {
 
 		Socket socket = null;
 		try {
-			socket = new Socket("localhost", 3761);
+			socket = new Socket("localhost", 2002);
 			OutputStream out = socket.getOutputStream();
 			PrintWriter writer = new PrintWriter(out);
 			writer.println("hello");
@@ -29,7 +29,7 @@ public class Client {
 			Thread.sleep(10 * 1000);
 			writer.println("Esti");
 			writer.flush();
-			Thread.sleep(10 * 1000);
+		//	Thread.sleep(10 * 1000);
 
 			// if close here then if there is an IOExcep before this then it
 			// wont close it.
