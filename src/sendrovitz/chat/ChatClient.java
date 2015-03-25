@@ -53,9 +53,9 @@ public class ChatClient {
 			e1.printStackTrace();
 		}
 
-	/*	finally {
-			IOUtils.closeQuietly(clientSocket);
-		}*/
+		/*
+		 * finally { IOUtils.closeQuietly(clientSocket); }
+		 */
 
 	}
 
@@ -65,7 +65,7 @@ public class ChatClient {
 	}
 
 	public void append(String line) {
-		this.textArea.append("Server: "+line + "\n");
+		this.textArea.append("Server: " + line + "\n");
 	}
 
 }
