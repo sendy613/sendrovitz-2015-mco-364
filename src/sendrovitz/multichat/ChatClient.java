@@ -26,7 +26,7 @@ public class ChatClient implements ReaderListener {
 			clientSocket = new Socket("localhost", 2009);
 			OutputStream out = clientSocket.getOutputStream();
 			this.writer = new PrintWriter(out);
-			ReaderThread thread = new ReaderThread(clientSocket, this);
+			ReaderRunnable thread = new ReaderRunnable(clientSocket, this);
 			Thread t = new Thread(thread);
 			t.start();
 

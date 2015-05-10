@@ -6,12 +6,12 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.Socket;
 
-public class ReaderThread implements Runnable {
+public class ReaderRunnable implements Runnable {
 	// read individ lines from stream and do something with it
 	private Socket socket;
 	private ReaderListener listener;
 	
-	public ReaderThread(Socket socket, ReaderListener listener) {
+	public ReaderRunnable(Socket socket, ReaderListener listener) {
 		this.socket = socket;
 		this.listener = listener;
 	}

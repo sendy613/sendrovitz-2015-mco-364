@@ -5,13 +5,15 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class WriterThread implements Runnable {
 	private LinkedBlockingQueue<String> queue;
-	private ArrayList<Socket> sockets;
+	private LinkedList<Socket> sockets;
 
-	public WriterThread(LinkedBlockingQueue<String> queue, ArrayList<Socket> sockets) {
+	public WriterThread(LinkedBlockingQueue<String> queue, LinkedList<Socket> sockets) {
 		this.queue = queue;
 		this.sockets = sockets;
 	}
@@ -20,22 +22,31 @@ public class WriterThread implements Runnable {
 	public void run() {
 		OutputStream out;
 		PrintWriter writer;
-		while(true){
-		try {
-			
-			String s = queue.take();
-			for (Socket sck : sockets) {
-				out = sck.getOutputStream();
-				writer = new PrintWriter(out);
-				writer.println(s);
-				writer.flush();
+		String s = null;
+		while(true){			
+			try {
+				s = queue.take();
+			} catch (InterruptedException e1) {
+				e1.printStackTrace();
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+			synchronized(sockets){
+				Iterator<Socket> iter = sockets.iterator();
+				while(iter.hasNext()){
+					Socket sck = iter.next();
+					try{
+						out = sck.getOutputStream();
+						writer = new PrintWriter(out);
+						writer.println(s);
+						writer.flush();
+						}
+						catch (IOException e) {
+							iter.remove();
+							e.printStackTrace();
+						} 
+				}
+			}
+		} 
 
 	}
-	}
+	
 }
