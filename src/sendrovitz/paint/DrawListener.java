@@ -6,6 +6,9 @@ import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DrawListener implements MouseListener, MouseMotionListener {
 
@@ -14,12 +17,14 @@ public class DrawListener implements MouseListener, MouseMotionListener {
 	private int oldY;
 	private Color color;
 	private String tool;
-	// private Rectangle rectangle;
 	private int rectX;
 	private int rectY;
 
+	// private List<BufferedImage> rectList;
+
 	public DrawListener(Canvas canvas) {
 		this.canvas = canvas;
+		// rectList = canvas.getRectangleList();
 	}
 
 	@Override
@@ -33,7 +38,6 @@ public class DrawListener implements MouseListener, MouseMotionListener {
 		tool = canvas.getTool();
 		Graphics graphics = canvas.getImage().getGraphics();
 		graphics.setColor(color);
-		
 
 		if (tool == "Pencil") {
 			graphics.drawLine(oldX, oldY, x, y);
@@ -42,7 +46,17 @@ public class DrawListener implements MouseListener, MouseMotionListener {
 
 		} else {
 			graphics.setColor(color);
-			graphics.fillRect(rectX, rectY, (rectX -x)*-1, (rectY - y)*-1);
+			if(rectX>x && rectY>y){
+				graphics.fillRect(rectX - (rectX - x), rectY -  (rectY - y), (rectX - x), (rectY - y));
+			}
+			else{
+			graphics.fillRect(rectX, rectY, (rectX - x) * -1, (rectY - y) * -1);
+			}
+			/*
+			 * BufferedImage temp = rectList.get(rectList.size()-1); Graphics g2
+			 * = temp.getGraphics(); g2.drawRect(rectX, rectY, (rectX -x)*-1,
+			 * (rectY - y)*-1);
+			 */
 		}
 		// repaint() is called because need to paint it the first time
 		canvas.repaint();
@@ -66,6 +80,8 @@ public class DrawListener implements MouseListener, MouseMotionListener {
 		} else {
 			rectX = x;
 			rectY = y;
+			// rectList.add(new BufferedImage(canvas.getWidth(),
+			// canvas.getHeight(), BufferedImage.TYPE_INT_RGB));
 		}
 
 		canvas.repaint();

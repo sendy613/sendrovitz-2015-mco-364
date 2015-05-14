@@ -8,7 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -41,7 +40,7 @@ public class PaintFrame extends JFrame {
 		// these two methods tell the canvas who to notify when there is motion
 		canvas.addMouseListener(listener);
 		canvas.addMouseMotionListener(listener);
-		String[] list = { "Black", "Red", "Orange", "Yellow", "Green", "Blue","Gray", "Pink" };
+		String[] list = { "Black", "Red", "Orange", "Yellow", "Green", "Blue","Gray", "Pink", "White" };
 		this.colorsBox = new JComboBox<String>(list);
 		colorsBox.addActionListener(new ActionListener() {
 
@@ -99,6 +98,8 @@ public class PaintFrame extends JFrame {
 			return Color.GRAY;
 		case "Pink":
 			return Color.PINK;
+		case "White":
+			return Color.WHITE;
 		default:
 			return Color.BLACK;
 		}
