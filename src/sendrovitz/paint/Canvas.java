@@ -2,20 +2,17 @@ package sendrovitz.paint;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.JPanel;
 
 public class Canvas extends JPanel {
 	private BufferedImage image;
-//	private List<BufferedImage> rectangleList;
 	private Color color;
-	private String tool;
+	private BrushListener listener;
 
-	public Canvas(int width, int height, Color color, String tool) {
+
+	public Canvas(int width, int height, Color color) {
 		// need to save the pixels in an image so that can recover it and redraw
 		// that when recall paint
 		// imageType is last argument.
@@ -25,21 +22,29 @@ public class Canvas extends JPanel {
 		graphics.setColor(Color.WHITE);
 		graphics.fillRect(0, 0, width, height);
 		this.color = color;
-		this.tool = tool;
-//		rectangleList = new ArrayList<BufferedImage>();
+
+	
 	}
+
+
+
 
 	@Override
 	// every time it is called it clears the info stored in memory. so lose
 	// what's on the screen
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
+		// draws buffered image to screen
+		// must use the graphics obj from paint component
 		g.drawImage(image, 0, 0, null);
-	/*	Graphics2D g2 = image.createGraphics();
-		g2.setColor(Color.WHITE);
-		for(BufferedImage image: rectangleList){
-			g2.drawImage(image,image.getMinX(),image.getMinTileY(),null);
-		}*/
+		// gets repainted e time mouse mouse. draws to graphics obj as opposed
+		// to drawing to the image
+		// short term
+		
+		
+		if(listener!=null){
+		listener.drawPreview(g);
+		}
 	}
 
 	public BufferedImage getImage() {
@@ -54,16 +59,10 @@ public class Canvas extends JPanel {
 		this.color = color;
 	}
 
-	public String getTool() {
-		return tool;
-	}
+	public void setBrushListener(BrushListener listener) {
+		this.listener = listener;
 
-	public void setTool(String tool) {
-		this.tool = tool;
+	
 	}
-
-/*	public List<BufferedImage> getRectangleList() {
-		return rectangleList;
-	}*/
 
 }
